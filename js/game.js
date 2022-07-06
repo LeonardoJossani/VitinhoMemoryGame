@@ -1,4 +1,6 @@
 const grid = document.querySelector('.grid');
+const spanPlayer = document.querySelector('.player');
+const timer = document.querySelector('.timer');
 
 const characters = [
     'glauber',
@@ -26,7 +28,8 @@ const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
     if (disabledCards.length === 20) {
-        alert('Boa mongolóide, você conseguiu!');
+        clearInterval(this.loop);
+        alert(`Boa mongolóide, você conseguiu! Seu mísero tempo foi de ${timer.innerHTML} segundos`);
     }
 }
 const checkCards = () => {
@@ -99,4 +102,22 @@ const loadGame = () => {
     });
 }
 
-loadGame();
+const startTimer = () => {
+
+    this.loop = setInterval(() => {
+        
+        const currentTime = +timer.innerHTML;
+        timer.innerHTML = currentTime + 1;
+
+    }, 1000);
+
+}
+
+window.onload = () => {
+
+    spanPlayer.innerHTML = localStorage.getItem('player');
+
+    startTimer();
+    loadGame();
+}
+
